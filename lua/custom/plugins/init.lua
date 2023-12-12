@@ -2,4 +2,20 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
-return {}
+return {
+	{"stevearc/oil.nvim",
+		event = "BufReadPost",
+		opts = {},
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
+	{
+		"ThePrimeagen/harpoon",
+		cmd = "Harpoon",
+	},
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		requires = { {"nvim-lua/plenary.nvim"} }
+	}
+}
+

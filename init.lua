@@ -190,10 +190,10 @@ require('lazy').setup({
 
   {
     -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+    'folke/tokyonight.nvim',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'onedark'
+      vim.cmd.colorscheme 'tokyonight-storm'
     end,
   },
 
@@ -204,7 +204,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'tokyonight-storm',
         component_separators = '|',
         section_separators = '',
       },
@@ -265,7 +265,7 @@ require('lazy').setup({
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting options ]]
@@ -657,3 +657,42 @@ cmp.setup {
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+-- [[ Configure oil.nvim ]]
+local oil = require('oil')
+oil.setup({
+  view_options = {
+    -- Show files and directories that start with "."
+    show_hidden = true,
+  },
+})
+vim.keymap.set(
+  'n', 
+  '<leader>o',
+  function()
+    oil.toggle_float()
+  end, { desc = "" }
+)
+
+-- [[ Configure oil.nvim ]]
+local harpoon = require('harpoon')
+harpoon.setup({
+  menu = {
+    width = 120,
+    height = 25,
+  },
+})
+vim.keymap.set(
+  'n', 
+  '<leader>hh',
+  function()
+    require('harpoon.ui').toggle_quick_menu()
+  end, { desc = "[harpoon] toggle quick menu" }
+)
+vim.keymap.set(
+  'n', 
+  '<leader>hm',
+  function()
+    require('harpoon.mark').add_file()
+  end, { desc = "[harpoon] add mark" }
+)
