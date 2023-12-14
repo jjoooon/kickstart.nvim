@@ -3,7 +3,8 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-	{"stevearc/oil.nvim",
+	{
+		"stevearc/oil.nvim",
 		event = "BufReadPost",
 		opts = {},
 		dependencies = { "nvim-tree/nvim-web-devicons" },
