@@ -517,19 +517,19 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+  nmap('<leader>ra', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-  nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+  nmap('gi', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
   nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap('<leader>ls', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -670,10 +670,46 @@ cmp.setup {
   },
 }
 
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+-- [[ Custom setting options ]]
+local opt = vim.opt
 
--- [[ Configure oil.nvim ]]
+opt.showmode = false
+opt.shiftwidth = 4
+opt.tabstop = 4
+opt.softtabstop = 4
+opt.smartindent = true
+opt.swapfile = false
+opt.cursorline = true
+opt.cursorcolumn = true
+opt.undolevels = 10000
+opt.undoreload = 10000
+opt.scrolloff = 6
+opt.sidescrolloff = 6
+opt.scrolljump = 6
+opt.relativenumber = true
+opt.ruler = false
+opt.signcolumn = 'yes'
+opt.splitbelow = true
+opt.splitright = true
+
+-- [[ Custom keymaps ]]
+-- go to  beginning and end
+vim.keymap.set('i', '<C-b>', '<Esc>^i', { desc = 'Beginning of the line' })
+vim.keymap.set('i', '<C-e>', '<End>', { desc = 'End of the line' })
+
+-- navigate within insert mode
+vim.keymap.set('i', '<C-h>', '<Left>', { desc = 'Move left' })
+vim.keymap.set('i', '<C-l>', '<Right>', { desc = 'Move right' })
+vim.keymap.set('i', '<C-j>', '<Down>', { desc = 'Move down' })
+vim.keymap.set('i', '<C-k>', '<Up>', { desc = 'Move up' })
+
+vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Window left' })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Window right' })
+vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Window down' })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Window up' })
+
+-- [[ Custom plugins ]]
+-- oil.nvim
 local oil = require('oil')
 oil.setup({
   view_options = {
@@ -689,7 +725,7 @@ vim.keymap.set(
   end, { desc = "" }
 )
 
--- [[ Configure harpoon ]]
+-- harpoon
 local harpoon = require('harpoon')
 harpoon.setup({
   menu = {
