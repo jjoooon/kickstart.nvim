@@ -112,7 +112,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -241,9 +241,22 @@ require('lazy').setup({
           return vim.fn.executable 'make' == 1
         end,
       },
+      {
+        'nvim-telescope/telescope-ui-select.nvim',
+        config = function()
+          require('telescope').setup({
+            extensions = {
+              ['ui-select'] = {
+                require('telescope.themes').get_dropdown {
+                }
+              }
+            }
+          })
+          require('telescope').load_extension('ui-select')
+        end
+      },
     },
   },
-
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -273,7 +286,7 @@ require('lazy').setup({
 -- NOTE: You can change these options as you wish!
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
@@ -324,6 +337,8 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+vim.keymap.set({ 'n', 'v' }, '<Esc>', ':noh<CR>', { silent = true })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -566,7 +581,7 @@ local servers = {
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
+  tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
   lua_ls = {
@@ -667,7 +682,7 @@ oil.setup({
   },
 })
 vim.keymap.set(
-  'n', 
+  'n',
   '<leader>o',
   function()
     oil.toggle_float()
@@ -683,14 +698,14 @@ harpoon.setup({
   },
 })
 vim.keymap.set(
-  'n', 
+  'n',
   '<leader>hh',
   function()
     require('harpoon.ui').toggle_quick_menu()
   end, { desc = "[harpoon] toggle quick menu" }
 )
 vim.keymap.set(
-  'n', 
+  'n',
   '<leader>hm',
   function()
     require('harpoon.mark').add_file()
